@@ -44,6 +44,7 @@ public class AutoControlActivity extends BasActivity {
     super.onCreate(savedInstanceState);
     binding = ActivityAutoControlBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
+    setContext(this);
     init();
   }
 
