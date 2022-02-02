@@ -63,11 +63,11 @@ public class AutoControllerFragment extends BasFragment {
   }
 
   @Override public void initAll() {
-    binding= FragmentAutoControllerBinding.inflate(getLayoutInflater());
   }
 
   @Override public void initAll(View view, Context context) {
     super.initAll(view, context);
+    binding = FragmentAutoControllerBinding.bind(view);
   }
 
   @Override public void setHandler(Handler handler) {
@@ -81,7 +81,7 @@ public class AutoControllerFragment extends BasFragment {
           module = (DeviceModule) o;
         }
         if (data != null) {
-          String strData = Analysis.getByteToString(data, true);
+          String strData = Analysis.getByteToString(data, false);
           log("ololeeDetail: "+strData);
           String[] dataArray = strData.split("[a-zA-Z]");
           log("ololeeDetail: "+ Arrays.toString(dataArray));
