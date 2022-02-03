@@ -13,6 +13,8 @@ import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.activity.tool.Analysis;
+import com.hc.mixthebluetooth.data.DataDealUtils;
+import com.hc.mixthebluetooth.data.DataModel;
 import com.hc.mixthebluetooth.databinding.FragmentAutoControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.storage.Storage;
@@ -83,12 +85,11 @@ public class AutoControllerFragment extends BasFragment {
         if (data != null) {
           String strData = Analysis.getByteToString(data, false);
           log("ololeeDetail: "+strData);
-          String[] dataArray = strData.split("[a-zA-Z]");
-          log("ololeeDetail: "+ Arrays.toString(dataArray));
-          binding.lateralDeviationTv.setText(dataArray[1]);
-          binding.courseDeviationTv.setText(dataArray[2]);
-          binding.frontWheelAngleTv.setText(dataArray[3]);
-          binding.vehicleDirectionTv.setText(dataArray[4]);
+          DataModel dataModel = DataDealUtils.formatData(data);
+          binding.lateralDeviationTv.setText(dataModel.getLateralDeviation()+"");
+          binding.courseDeviationTv.setText(dataModel.getCourseDeviation()+"");
+          binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle()+"");
+          binding.vehicleDirectionTv.setText(dataModel.getRtkDirection()+"");
           //D0.236B-0.125C56.245H5.546
          /*
           mDataList.add(new FragmentMessageItem(Analysis.getByteToString(data,isReadHex), isShowTime?Analysis.getTime():null, false, module,isShowMyData));
