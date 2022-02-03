@@ -83,7 +83,7 @@ public class AutoControllerFragment extends BasFragment {
           module = (DeviceModule) o;
         }
         if (data != null) {
-          String strData = Analysis.getByteToString(data, false);
+          String strData = Analysis.getByteToString(data, true);
           log("ololeeDetail: "+strData);
           DataModel dataModel = DataDealUtils.formatData(data);
           binding.lateralDeviationTv.setText(dataModel.getLateralDeviation()+"");
