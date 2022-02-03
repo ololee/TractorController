@@ -12,7 +12,7 @@ public class DataDealUtils {
     if (data.length < 27) {
       throw new DataErrorException();
     }
-    if (data[0] != 0x5a || data[1] != 0xc1 || data[27] != 0x29) {
+    if (data[0] != 0x5a || data[1] != 0xc1 || data[27] != 0x1c) {
       throw new DataErrorException();
     }
     DataModel dataModel = new DataModel();
