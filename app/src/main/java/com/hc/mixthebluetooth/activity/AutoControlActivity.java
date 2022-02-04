@@ -65,6 +65,7 @@ public class AutoControlActivity extends BasActivity {
 
       @Override public void connectSucceed() {
         modules = mHoldBluetooth.getConnectedArray();
+        mMessage.readData(FRAGMENT_STATE_DATA, modules.get(0), null);
       }
 
       @Override public void errorDisconnect(DeviceModule deviceModule) {
@@ -102,6 +103,7 @@ public class AutoControlActivity extends BasActivity {
 
   private void init() {
     mMessage = AutoControllerFragment.newInstance();
+    mMessage.setHandler(mFragmentHandler);
     fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     fragmentTransaction.replace(R.id.auto_controller_frame,
