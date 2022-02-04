@@ -21,8 +21,6 @@ import com.hc.mixthebluetooth.storage.Storage;
 import java.util.Arrays;
 
 public class AutoControllerFragment extends BasFragment {
-  private static final String ARG_PARAM1 = "param1";
-  private static final String ARG_PARAM2 = "param2";
 
   private Runnable mRunnable;//循环发送的线程
   private Handler mHandler;
