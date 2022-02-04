@@ -29,12 +29,11 @@ public class AutoControlActivity extends BasActivity {
   private DeviceModule mErrorDisconnect;
   private IMessageInterface mMessage;
 
-
   private Handler mFragmentHandler = new Handler(new Handler.Callback() {
     @Override
     public boolean handleMessage(@NonNull Message msg) {
       FragmentMessageItem item = (FragmentMessageItem) msg.obj;
-      mHoldBluetooth.sendData(item.getModule(),item.getByteData().clone());
+      mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
       return false;
     }
   });
@@ -56,7 +55,7 @@ public class AutoControlActivity extends BasActivity {
   private void initDataListener() {
     HoldBluetooth.OnReadDataListener dataListener = new HoldBluetooth.OnReadDataListener() {
       @Override public void readData(String mac, byte[] data) {
-        mMessage.readData(FRAGMENT_STATE_DATA,modules.get(0),data);
+        mMessage.readData(FRAGMENT_STATE_DATA, modules.get(0), data);
       }
 
       @Override public void reading(boolean isStart) {
@@ -75,17 +74,18 @@ public class AutoControlActivity extends BasActivity {
               @Override
               public void run() {
                 mHoldBluetooth.connect(deviceModule);
-              //  setState(CONNECTING);//设置正在连接状态
+                //  setState(CONNECTING);//设置正在连接状态
               }
-            },2000);
+            }, 2000);
             return;
           }
         }
-       // setState(DISCONNECT);//设置断开状态
-        if (deviceModule != null)
+        // setState(DISCONNECT);//设置断开状态
+        if (deviceModule != null) {
           toast("连接" + deviceModule.getName() + "失败，点击右上角的已断线可尝试重连", Toast.LENGTH_LONG);
-        else
+        } else {
           toast("连接模块失败，请返回上一个页面重连", Toast.LENGTH_LONG);
+        }
       }
 
       @Override public void readNumber(int number) {
@@ -96,12 +96,11 @@ public class AutoControlActivity extends BasActivity {
 
       }
     };
-
     mHoldBluetooth.setOnReadListener(dataListener);
   }
 
   private void init() {
-    mMessage = AutoControllerFragment.newInstance("","");
+    mMessage = AutoControllerFragment.newInstance();
     fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
     fragmentTransaction.replace(R.id.auto_controller_frame,
@@ -112,7 +111,8 @@ public class AutoControlActivity extends BasActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
-    if (modules != null)
+    if (modules != null) {
       mHoldBluetooth.disconnect(modules.get(0));
+    }
   }
 }

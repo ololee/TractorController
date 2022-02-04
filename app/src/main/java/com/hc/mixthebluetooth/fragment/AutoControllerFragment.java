@@ -29,36 +29,15 @@ public class AutoControllerFragment extends BasFragment {
 
   private DeviceModule module;
 
-  private String mParam1;
-  private String mParam2;
   private FragmentAutoControllerBinding binding;
 
   public AutoControllerFragment() {
   }
 
-  public static AutoControllerFragment newInstance(String param1, String param2) {
+  public static AutoControllerFragment newInstance() {
     AutoControllerFragment fragment = new AutoControllerFragment();
-    Bundle args = new Bundle();
-    args.putString(ARG_PARAM1, param1);
-    args.putString(ARG_PARAM2, param2);
-    fragment.setArguments(args);
     return fragment;
   }
-
- /* @Override
-  public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (getArguments() != null) {
-      mParam1 = getArguments().getString(ARG_PARAM1);
-      mParam2 = getArguments().getString(ARG_PARAM2);
-    }
-  }
-
-  @Override
-  public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    return inflater.inflate(R.layout.fragment_auto_controller, container, false);
-  }*/
 
   @Override public int setFragmentViewId() {
     return R.layout.fragment_auto_controller;
@@ -90,24 +69,17 @@ public class AutoControllerFragment extends BasFragment {
           binding.courseDeviationTv.setText(dataModel.getCourseDeviation()+"");
           binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle()+"");
           binding.vehicleDirectionTv.setText(dataModel.getRtkDirection()+"");
-          //D0.236B-0.125C56.245H5.546
-         /*
-          mDataList.add(new FragmentMessageItem(Analysis.getByteToString(data,isReadHex), isShowTime?Analysis.getTime():null, false, module,isShowMyData));
-          mAdapter.notifyDataSetChanged();
-          mRecyclerView.smoothScrollToPosition(mDataList.size());
-          mReadNumberTV.setText(String.valueOf(Integer.parseInt(mReadNumberTV.getText().toString())+Analysis.lengthArray(data)));
-          */
-
         }
         break;
       case CommunicationActivity.FRAGMENT_STATE_NUMBER:
-       /* mSendNumberTv.setText(
-            String.valueOf(Integer.parseInt(mSendNumberTv.getText().toString()) + ((int) o)));
-        setUnsentNumberTv();*/
         break;
       case CommunicationActivity.FRAGMENT_STATE_SEND_SEND_TITLE:
-        //mTitle = (DefaultNavigationBar) o;
         break;
     }
   }
+
+  public void sendData(){
+
+  }
+
 }
