@@ -13,16 +13,15 @@ import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
-import com.hc.mixthebluetooth.databinding.ActivityAutoControlBinding;
 import com.hc.mixthebluetooth.databinding.ActivityRemoteControlBinding;
-import com.hc.mixthebluetooth.fragment.AutoControllerFragment;
+import com.hc.mixthebluetooth.fragment.ManualControllerFragment;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import java.util.List;
 
 import static com.hc.mixthebluetooth.activity.CommunicationActivity.FRAGMENT_STATE_DATA;
 
 
-public class RemoteControlActivity extends BasActivity {
+public class ManualControllerActivity extends BasActivity {
   private ActivityRemoteControlBinding binding;
   private FragmentManager fragmentManager;
   private HoldBluetooth mHoldBluetooth;
@@ -99,7 +98,7 @@ public class RemoteControlActivity extends BasActivity {
   }
 
   private void init() {
-    mMessage = AutoControllerFragment.newInstance();
+    mMessage = ManualControllerFragment.newInstance();
     mMessage.setHandler(mFragmentHandler);
     fragmentManager = getSupportFragmentManager();
     FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

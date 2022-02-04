@@ -106,6 +106,9 @@
   <string name="btn_stop">停止</string>
   <string name="btn_back">后退</string>
 
+  <string name="auto_controller">自动</string>
+  <string name="remote_controller">手动</string>
+
 
 
 </resources>

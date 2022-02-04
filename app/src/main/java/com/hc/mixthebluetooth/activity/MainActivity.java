@@ -1,6 +1,7 @@
 package com.hc.mixthebluetooth.activity;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +19,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.hc.basiclibrary.dialog.CommonDialog;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.permission.PermissionUtil;
-import com.hc.basiclibrary.recyclerAdapterBasic.ItemClickListener;
 import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
 import com.hc.basiclibrary.viewBasic.BasActivity;
 import com.hc.bluetoothlibrary.DeviceModule;
@@ -30,6 +30,10 @@ import com.hc.mixthebluetooth.customView.dialog.CollectBluetooth;
 import com.hc.mixthebluetooth.recyclerData.MainRecyclerAdapter;
 import com.hc.mixthebluetooth.storage.Storage;
 
+import com.qmuiteam.qmui.skin.QMUISkinManager;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.widget.popup.QMUIPopups;
+import com.qmuiteam.qmui.widget.popup.QMUIQuickAction;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -209,10 +213,7 @@ public class MainActivity extends BasActivity {
             if (view.getId() == R.id.item_main_icon){
                 setCollectWindow(position);//收藏窗口
             }else {
-                mHoldBluetooth.setDevelopmentMode(MainActivity.this);//设置是否进入开发模式
-                mHoldBluetooth.connect(mFilterModuleArray.get(position));
-                //startActivity(CommunicationActivity.class);
-                startActivity(RemoteControlActivity.class);
+                showPopup(position,view);
             }
         });
     }
@@ -224,12 +225,7 @@ public class MainActivity extends BasActivity {
         collectBuilder.setView(R.layout.hint_collect_vessel).fullWidth().loadAnimation().create().show();
         CollectBluetooth collectBluetooth = collectBuilder.getView(R.id.hint_collect_vessel_view);
         collectBluetooth.setBuilder(collectBuilder).setDevice(mFilterModuleArray.get(position))
-                .setCallback(new CollectBluetooth.OnCollectCallback() {
-                    @Override
-                    public void callback() {
-                        upDateList();
-                    }
-                });
+                .setCallback(() -> upDateList());
     }
 
     //更新列表
@@ -299,4 +295,42 @@ public class MainActivity extends BasActivity {
         //退出这个界面，或是返回桌面时，停止扫描
         mHoldBluetooth.stopScan();
     }
+
+    private Context getContext(){
+      return this;
+    }
+
+
+  private void showPopup(int pos,View v) {
+    QMUIPopups.quickAction(getContext(),
+        QMUIDisplayHelper.dp2px(getContext(), 56),
+        QMUIDisplayHelper.dp2px(getContext(), 56))
+        .shadow(true)
+        .skinManager(QMUISkinManager.defaultInstance(getContext()))
+        .edgeProtection(QMUIDisplayHelper.dp2px(getContext(), 20))
+        .addAction(new QMUIQuickAction.Action().icon(R.drawable.auto_icon)
+            .text(getText(R.string.auto_controller))
+            .onClick(
+                (quickAction, action, position) -> {
+                  quickAction.dismiss();
+                  startSecondActivity(pos,AutoControlActivity.class);
+                }
+            ))
+        .addAction(new QMUIQuickAction.Action().icon(R.drawable.manual_icon)
+            .text(getText(R.string.remote_controller))
+            .onClick(
+                (quickAction, action, position) -> {
+                  quickAction.dismiss();
+                  startSecondActivity(pos, ManualControllerActivity.class);
+                }
+            ))
+
+        .show(v);
+  }
+
+  private void startSecondActivity(int position,Class clazz){
+    mHoldBluetooth.setDevelopmentMode(MainActivity.this);//设置是否进入开发模式
+    mHoldBluetooth.connect(mFilterModuleArray.get(position));
+    startActivity(clazz);
+  }
 }

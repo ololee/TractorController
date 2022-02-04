@@ -17,7 +17,7 @@
     android:theme="@style/AppTheme"
     tools:ignore="GoogleAppIndexingWarning">
     <activity
-      android:name=".activity.RemoteControlActivity"
+      android:name=".activity.ManualControllerActivity"
       android:exported="false"
       android:screenOrientation="sensorLandscape"/>
     <activity

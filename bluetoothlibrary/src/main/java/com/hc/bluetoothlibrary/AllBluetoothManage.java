@@ -130,6 +130,8 @@ public class AllBluetoothManage {
 
     //发送数据
     public void sendData(DeviceModule deviceModule,byte[] data){
+        if(deviceModule==null)
+            return;
         if (deviceModule.isBLE()){
             mBleManage.sendData(data);
         }else {
