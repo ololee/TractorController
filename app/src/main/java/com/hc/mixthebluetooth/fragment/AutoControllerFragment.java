@@ -57,6 +57,8 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     btnB.setOnClickListener(this);
     btnC.setOnClickListener(this);
     btnD.setOnClickListener(this);
+    binding.btnTurnLeft.setOnClickListener(this);
+    binding.btnTurnRight.setOnClickListener(this);
   }
 
   @Override public void setHandler(Handler handler) {
@@ -114,6 +116,12 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
         break;
       case R.id.btn_d:
         sendData(0xdd);
+        break;
+      case R.id.btn_turn_left:
+        sendData(0xe1);
+        break;
+      case R.id.btn_turn_right:
+        sendData(0xe2);
         break;
     }
   }
