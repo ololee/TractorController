@@ -32,9 +32,10 @@ public class AutoControlActivity extends BasActivity {
   private Handler mFragmentHandler = new Handler(new Handler.Callback() {
     @Override
     public boolean handleMessage(@NonNull Message msg) {
+      log("================handleMessage===============");
       FragmentMessageItem item = (FragmentMessageItem) msg.obj;
       mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
-      return false;
+      return true;
     }
   });
 

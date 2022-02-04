@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.widget.Toast;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -96,9 +97,11 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     message.what = CommunicationActivity.DATA_TO_MODULE;
     message.obj = item;
     mHandler.sendMessage(message);
+    log("==========sendData===============");
   }
 
   @Override public void onClick(View v) {
+    Toast.makeText(getContext(), "press", Toast.LENGTH_SHORT).show();
     switch (v.getId()) {
       case R.id.btn_a:
         sendData(0xaa);
