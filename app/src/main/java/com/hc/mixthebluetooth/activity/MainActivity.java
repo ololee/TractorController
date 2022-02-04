@@ -204,18 +204,15 @@ public class MainActivity extends BasActivity {
 
     //设置点击事件
     private void setRecyclerListener() {
-        mainRecyclerAdapter.setOnItemClickListener(new ItemClickListener() {
-            @Override
-            public void onItemClick(int position, View view) {
-                log("viewId:"+view.getId()+" item_main_icon:"+R.id.item_main_icon);
-                if (view.getId() == R.id.item_main_icon){
-                    setCollectWindow(position);//收藏窗口
-                }else {
-                    mHoldBluetooth.setDevelopmentMode(MainActivity.this);//设置是否进入开发模式
-                    mHoldBluetooth.connect(mFilterModuleArray.get(position));
-                    //startActivity(CommunicationActivity.class);
-                    startActivity(AutoControlActivity.class);
-                }
+        mainRecyclerAdapter.setOnItemClickListener((position, view) -> {
+            log("viewId:"+view.getId()+" item_main_icon:"+R.id.item_main_icon);
+            if (view.getId() == R.id.item_main_icon){
+                setCollectWindow(position);//收藏窗口
+            }else {
+                mHoldBluetooth.setDevelopmentMode(MainActivity.this);//设置是否进入开发模式
+                mHoldBluetooth.connect(mFilterModuleArray.get(position));
+                //startActivity(CommunicationActivity.class);
+                startActivity(RemoteControlActivity.class);
             }
         });
     }

@@ -101,8 +101,11 @@
 
   <string name="turn_left">向左换行</string>
   <string name="turn_right">向右换行</string>
-  <!-- TODO: Remove or change this placeholder text -->
-  <string name="hello_blank_fragment">Hello blank fragment</string>
+
+  <string name="btn_forward">前进</string>
+  <string name="btn_stop">停止</string>
+  <string name="btn_back">后退</string>
+
 
 
 </resources>
