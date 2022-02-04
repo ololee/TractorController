@@ -199,7 +199,9 @@ public class FragmentMessage extends BasFragment {
             return;
         }
         if (!mCheckLoopSend.isChecked()) {
-            sendData(new FragmentMessageItem(isSendHex, Analysis.getBytes(mDataET.getText().toString().replaceAll(" ", ""), isSendHex), isShowTime ? Analysis.getTime() : null, true, module, isShowMyData));
+            sendData(new FragmentMessageItem(isSendHex,
+                Analysis.getBytes(mDataET.getText().toString().replaceAll(" ", ""), isSendHex),
+                isShowTime ? Analysis.getTime() : null, true, module, isShowMyData));
         }else {
             try {
                 Integer.parseInt(mLoopET.getText().toString());

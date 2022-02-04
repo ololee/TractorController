@@ -3,6 +3,7 @@ package com.hc.mixthebluetooth.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.storage.Storage;
 import java.util.Arrays;
 
-public class AutoControllerFragment extends BasFragment {
+public class AutoControllerFragment extends BasFragment implements View.OnClickListener {
 
   private Runnable mRunnable;//循环发送的线程
   private Handler mHandler;
@@ -47,6 +48,14 @@ public class AutoControllerFragment extends BasFragment {
   @Override public void initAll(View view, Context context) {
     super.initAll(view, context);
     binding = FragmentAutoControllerBinding.bind(view);
+    View btnA = binding.locationBtns.findViewById(R.id.btn_a);
+    View btnB = binding.locationBtns.findViewById(R.id.btn_b);
+    View btnC = binding.locationBtns.findViewById(R.id.btn_c);
+    View btnD = binding.locationBtns.findViewById(R.id.btn_d);
+    btnA.setOnClickListener(this);
+    btnB.setOnClickListener(this);
+    btnC.setOnClickListener(this);
+    btnD.setOnClickListener(this);
   }
 
   @Override public void setHandler(Handler handler) {
@@ -61,12 +70,12 @@ public class AutoControllerFragment extends BasFragment {
         }
         if (data != null) {
           String strData = Analysis.getByteToString(data, true);
-          log("ololeeDetail: "+strData);
+          log("ololeeDetail: " + strData);
           DataModel dataModel = DataDealUtils.formatData(data);
-          binding.lateralDeviationTv.setText(dataModel.getLateralDeviation()+"");
-          binding.courseDeviationTv.setText(dataModel.getCourseDeviation()+"");
-          binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle()+"");
-          binding.vehicleDirectionTv.setText(dataModel.getRtkDirection()+"");
+          binding.lateralDeviationTv.setText(dataModel.getLateralDeviation() + "");
+          binding.courseDeviationTv.setText(dataModel.getCourseDeviation() + "");
+          binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle() + "");
+          binding.vehicleDirectionTv.setText(dataModel.getRtkDirection() + "");
         }
         break;
       case CommunicationActivity.FRAGMENT_STATE_NUMBER:
@@ -76,8 +85,33 @@ public class AutoControllerFragment extends BasFragment {
     }
   }
 
-  public void sendData(){
-
+  public void sendData(int functionCode) {
+    if (mHandler == null) {
+      return;
+    }
+    byte[] sendDataCode = DataDealUtils.sendABCDPointsFunc(functionCode);
+    FragmentMessageItem item =
+        new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
+    Message message = mHandler.obtainMessage();
+    message.what = CommunicationActivity.DATA_TO_MODULE;
+    message.obj = item;
+    mHandler.sendMessage(message);
   }
 
+  @Override public void onClick(View v) {
+    switch (v.getId()) {
+      case R.id.btn_a:
+        sendData(0xaa);
+        break;
+      case R.id.btn_b:
+        sendData(0xbb);
+        break;
+      case R.id.btn_c:
+        sendData(0xcc);
+        break;
+      case R.id.btn_d:
+        sendData(0xdd);
+        break;
+    }
+  }
 }

@@ -12,7 +12,7 @@ public class DataDealUtils {
     if (data.length < 27) {
       throw new DataErrorException();
     }
-    if (data[0] != (byte)0x5a || data[1] != (byte)0xc1 || data[27] != 0x1c) {
+    if (data[0] != (byte) 0x5a || data[1] != (byte) 0xc1 || data[27] != 0x1c) {
       throw new DataErrorException();
     }
     DataModel dataModel = new DataModel();
@@ -46,5 +46,14 @@ public class DataDealUtils {
       throw new DataErrorException();
     }
     return dataModel;
+  }
+
+  public static byte[] sendABCDPointsFunc(int functionCode) {
+    byte[] data = new byte[4];
+    data[0] = (byte) 0xa5;
+    data[1] = (byte) 0xff;
+    data[2] = (byte) functionCode;
+    data[3] = 0x00;
+    return data;
   }
 }
