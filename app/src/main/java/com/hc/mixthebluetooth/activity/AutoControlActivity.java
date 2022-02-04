@@ -4,7 +4,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +15,7 @@ import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
 import com.hc.mixthebluetooth.databinding.ActivityAutoControlBinding;
 import com.hc.mixthebluetooth.fragment.AutoControllerFragment;
+import com.hc.mixthebluetooth.fragment.ManualControllerFragment;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import java.util.List;
 
@@ -32,7 +32,6 @@ public class AutoControlActivity extends BasActivity {
   private Handler mFragmentHandler = new Handler(new Handler.Callback() {
     @Override
     public boolean handleMessage(@NonNull Message msg) {
-      log("================handleMessage===============");
       FragmentMessageItem item = (FragmentMessageItem) msg.obj;
       mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
       return true;
@@ -72,13 +71,7 @@ public class AutoControlActivity extends BasActivity {
         if (mErrorDisconnect == null) {//判断是否已经重复连接
           mErrorDisconnect = deviceModule;
           if (mHoldBluetooth != null && deviceModule != null) {
-            mFragmentHandler.postDelayed(new Runnable() {
-              @Override
-              public void run() {
-                mHoldBluetooth.connect(deviceModule);
-                //  setState(CONNECTING);//设置正在连接状态
-              }
-            }, 2000);
+            mFragmentHandler.postDelayed(() -> mHoldBluetooth.connect(deviceModule), 2000);
             return;
           }
         }
