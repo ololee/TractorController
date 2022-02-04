@@ -100,11 +100,9 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     message.what = CommunicationActivity.DATA_TO_MODULE;
     message.obj = item;
     mHandler.sendMessage(message);
-    log("==========sendData===============");
   }
 
   @Override public void onClick(View v) {
-    Toast.makeText(getContext(), "press", Toast.LENGTH_SHORT).show();
     switch (v.getId()) {
       case R.id.btn_a:
         sendData(0xaa);
