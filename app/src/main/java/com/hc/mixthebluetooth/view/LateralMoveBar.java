@@ -82,8 +82,11 @@ public class LateralMoveBar extends View {
     outlinePath.addArc(outLineLeftCircle, 270, -180);
     outlinePath.lineTo(radius + outlineLen, 0);
 
-    outlinePaint.setColor(Color.RED);
+    outlinePaint.setColor(Color.parseColor("#d1d2d6"));
     outlinePaint.setAntiAlias(true);
+
+    fingerPaint.setColor(Color.WHITE);
+    fingerPaint.setAntiAlias(true);
 
     positionAnimator = ValueAnimator.ofFloat(1);
     positionAnimator.addUpdateListener(animation -> {
@@ -97,6 +100,7 @@ public class LateralMoveBar extends View {
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
       case MotionEvent.ACTION_MOVE:
+        fingerPaint.setColor(Color.parseColor("#ededed"));
         if (event.getX() < radius) {
           currentX = radius;
         } else if (event.getX() > (radius + outlineLen)) {
@@ -110,6 +114,7 @@ public class LateralMoveBar extends View {
       case MotionEvent.ACTION_UP:
         positionAnimator.setDuration(1000);
         positionAnimator.start();
+        fingerPaint.setColor(Color.WHITE);
         break;
     }
     return true;
