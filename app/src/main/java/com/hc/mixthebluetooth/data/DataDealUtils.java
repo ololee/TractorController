@@ -48,12 +48,25 @@ public class DataDealUtils {
     return dataModel;
   }
 
-  public static byte[] sendABCDPointsFunc(int functionCode) {
+  public static byte[] sendControlCodeFunc(int functionCode) {
     byte[] data = new byte[4];
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xff;
     data[2] = (byte) functionCode;
     data[3] = 0x00;
+    return data;
+  }
+
+  public static byte[] sendDirectionCodeFunc(float direction) {
+    byte[] dirbytes = DataCastUtils.float2ByteArray(direction);
+    byte[] data = new byte[4];
+    data[0] = (byte) 0xa5;
+    data[1] = (byte) 0xf1;
+    data[2] = dirbytes[0];
+    data[3] = dirbytes[1];
+    data[4] = dirbytes[2];
+    data[5] = dirbytes[3];
+    data[6] = 0x07;
     return data;
   }
 }

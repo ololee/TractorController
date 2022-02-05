@@ -4,15 +4,12 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.CompoundButton;
-import androidx.fragment.app.Fragment;
 import com.hc.basiclibrary.viewBasic.BasFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.activity.tool.Analysis;
 import com.hc.mixthebluetooth.data.DataDealUtils;
-import com.hc.mixthebluetooth.data.DataModel;
 import com.hc.mixthebluetooth.databinding.FragmentManualControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.view.LateralMoveBar;
@@ -73,19 +70,35 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   @Override public void onClick(View v) {
     switch (v.getId()) {
       case R.id.btn_forward:
+        controlSpeed(0x1f);
         break;
       case R.id.btn_stop:
+        controlSpeed(0x00);
         break;
       case R.id.btn_back:
+        controlSpeed(0x1b);
         break;
     }
   }
 
-  public void sendData(int functionCode) {
+  public void controlSpeed(int speedCode) {
     if (mHandler == null) {
       return;
     }
-    byte[] sendDataCode = DataDealUtils.sendABCDPointsFunc(functionCode);
+    byte[] sendDataCode = DataDealUtils.sendControlCodeFunc(speedCode);
+    FragmentMessageItem item =
+        new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
+    Message message = mHandler.obtainMessage();
+    message.what = CommunicationActivity.DATA_TO_MODULE;
+    message.obj = item;
+    mHandler.sendMessage(message);
+  }
+
+  public void sendDirectionCode(float x){
+    if (mHandler == null) {
+      return;
+    }
+    byte[] sendDataCode = DataDealUtils.sendDirectionCodeFunc(x);
     FragmentMessageItem item =
         new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
     Message message = mHandler.obtainMessage();
@@ -97,6 +110,6 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   private DecimalFormat decimalFormat = new DecimalFormat("0.0000");
 
   @Override public void slide(float x) {
-    log("ololeeDetail========x:  " + x);
+    sendDirectionCode(x);
   }
 }

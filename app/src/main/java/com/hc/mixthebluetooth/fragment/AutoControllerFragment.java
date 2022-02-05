@@ -1,15 +1,9 @@
 package com.hc.mixthebluetooth.fragment;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.widget.Toast;
-import androidx.fragment.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
 import com.hc.basiclibrary.viewBasic.BasFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
@@ -19,8 +13,6 @@ import com.hc.mixthebluetooth.data.DataDealUtils;
 import com.hc.mixthebluetooth.data.DataModel;
 import com.hc.mixthebluetooth.databinding.FragmentAutoControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
-import com.hc.mixthebluetooth.storage.Storage;
-import java.util.Arrays;
 
 public class AutoControllerFragment extends BasFragment implements View.OnClickListener {
 
@@ -93,7 +85,7 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     if (mHandler == null) {
       return;
     }
-    byte[] sendDataCode = DataDealUtils.sendABCDPointsFunc(functionCode);
+    byte[] sendDataCode = DataDealUtils.sendControlCodeFunc(functionCode);
     FragmentMessageItem item =
         new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
     Message message = mHandler.obtainMessage();
