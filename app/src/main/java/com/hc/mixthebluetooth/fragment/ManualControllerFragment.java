@@ -15,6 +15,7 @@ import com.hc.mixthebluetooth.data.DataModel;
 import com.hc.mixthebluetooth.databinding.FragmentManualControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.view.LateralMoveBar;
+import java.text.DecimalFormat;
 
 public class ManualControllerFragment extends BasFragment implements View.OnClickListener,
     LateralMoveBar.SlideCallback {
@@ -89,7 +90,8 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     mHandler.sendMessage(message);
   }
 
+  private DecimalFormat decimalFormat = new DecimalFormat("0.0000");
   @Override public void slide(float x) {
-
+    log("ololeeDetail========x:  "+decimalFormat.format(x));
   }
 }

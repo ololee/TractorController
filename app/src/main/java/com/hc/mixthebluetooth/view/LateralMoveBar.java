@@ -92,7 +92,7 @@ public class LateralMoveBar extends View {
     positionAnimator.addUpdateListener(animation -> {
       Float currentProgress = (Float) animation.getAnimatedValue();
       chageFingerPosition(
-          (currentX - 0.5f*(radius + outlineLen)) * currentProgress + (radius + outlineLen)*0.5f);
+          (currentX - (radius + 0.5f * outlineLen)) * currentProgress + radius + outlineLen * 0.5f);
     });
   }
 
@@ -127,8 +127,9 @@ public class LateralMoveBar extends View {
   }
 
   private void chageFingerPosition(float x) {
+    Log.d("ololeeTAG", "chageFingerPosition: " + x);
     if (slideCallback != null) {
-      slideCallback.slide(x);
+      slideCallback.slide((2.0f * (x - radius) - outlineLen) / (outlineLen));
     }
     currentX = x;
     invalidate();
