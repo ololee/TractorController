@@ -27,10 +27,10 @@
 
     <Button
       android:id="@+id/btn_stop"
-      android:textColor="@color/red"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/btn_stop" />
+      android:text="@string/btn_stop"
+      android:textColor="@color/red" />
 
     <Button
       android:id="@+id/btn_back"
@@ -51,5 +51,25 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.7" />
+
+  <LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@+id/lateral_move_bar"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.088">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/rudder_amidships" />
+
+    <CheckBox
+      android:id="@+id/rudder_check_box"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

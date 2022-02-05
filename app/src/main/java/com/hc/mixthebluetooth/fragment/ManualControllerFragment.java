@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.CompoundButton;
 import androidx.fragment.app.Fragment;
 import com.hc.basiclibrary.viewBasic.BasFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
@@ -42,6 +43,9 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     binding.btnForward.setOnClickListener(this);
     binding.btnStop.setOnClickListener(this);
     binding.btnBack.setOnClickListener(this);
+    binding.rudderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+      binding.lateralMoveBar.setBackToCenter(isChecked);
+    });
   }
 
   @Override public void initAll() {
@@ -91,7 +95,8 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   }
 
   private DecimalFormat decimalFormat = new DecimalFormat("0.0000");
+
   @Override public void slide(float x) {
-    log("ololeeDetail========x:  "+decimalFormat.format(x));
+    log("ololeeDetail========x:  " + x);
   }
 }

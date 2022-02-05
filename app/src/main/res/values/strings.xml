@@ -108,6 +108,8 @@
 
   <string name="auto_controller">自动</string>
   <string name="remote_controller">手动</string>
+  
+  <string name="rudder_amidships">回中: </string>
 
 
 

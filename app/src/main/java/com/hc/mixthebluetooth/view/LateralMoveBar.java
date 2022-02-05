@@ -33,6 +33,7 @@ public class LateralMoveBar extends View {
   private float currentX = radius + outlineLen * 0.5f;
   private ValueAnimator positionAnimator;
   private SlideCallback slideCallback;
+  private boolean backToCenter = false;
 
   public LateralMoveBar(Context context) {
     super(context);
@@ -94,6 +95,7 @@ public class LateralMoveBar extends View {
       chageFingerPosition(
           (currentX - (radius + 0.5f * outlineLen)) * currentProgress + radius + outlineLen * 0.5f);
     });
+    positionAnimator.setDuration(1000);
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
@@ -112,8 +114,9 @@ public class LateralMoveBar extends View {
         positionAnimator.cancel();
         break;
       case MotionEvent.ACTION_UP:
-        positionAnimator.setDuration(1000);
-        positionAnimator.start();
+        if (backToCenter) {
+          positionAnimator.start();
+        }
         fingerPaint.setColor(Color.WHITE);
         break;
     }
@@ -141,5 +144,13 @@ public class LateralMoveBar extends View {
 
   public void setSlideCallback(SlideCallback slideCallback) {
     this.slideCallback = slideCallback;
+  }
+
+  public void setBackToCenter(boolean backToCenter) {
+    this.backToCenter = backToCenter;
+    if (currentX != (radius + 0.5 * outlineLen)) {
+      currentX = (float) (radius + 0.5 * outlineLen);
+      invalidate();
+    }
   }
 }
