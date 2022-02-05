@@ -12,11 +12,10 @@ import com.hc.mixthebluetooth.activity.tool.Analysis;
 import com.hc.mixthebluetooth.data.DataDealUtils;
 import com.hc.mixthebluetooth.databinding.FragmentManualControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
-import com.hc.mixthebluetooth.view.LateralMoveBar;
-import java.text.DecimalFormat;
+import com.hc.mixthebluetooth.view.MoveBar;
 
 public class ManualControllerFragment extends BasFragment implements View.OnClickListener,
-    LateralMoveBar.SlideCallback {
+    MoveBar.SlideCallback {
   private Handler mHandler;
   private DeviceModule module;
   private FragmentManualControllerBinding binding;
@@ -107,9 +106,8 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     mHandler.sendMessage(message);
   }
 
-  private DecimalFormat decimalFormat = new DecimalFormat("0.0000");
 
-  @Override public void slide(float x) {
-    sendDirectionCode(x);
+  @Override public void slide(float value) {
+    sendDirectionCode(value);
   }
 }

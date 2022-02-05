@@ -92,12 +92,12 @@
   <string name="picture_switch">画面切换</string>
   <string name="amplitude_width_settings">幅宽设置</string>
 
-  <string name="lateral_deviation">横向偏差:</string>
-  <string name="mode">模式:</string>
+  <string name="lateral_deviation">横向偏差</string>
+  <string name="mode">模式</string>
 
-  <string name="vehicle_direction">车辆航向信息:</string>
-  <string name="course_deviation">航向偏差:</string>
-  <string name="front_wheel_angle">前轮转角:</string>
+  <string name="vehicle_direction">车辆航向信息</string>
+  <string name="course_deviation">航向偏差</string>
+  <string name="front_wheel_angle">前轮转角</string>
 
   <string name="turn_left">向左换行</string>
   <string name="turn_right">向右换行</string>
@@ -109,7 +109,9 @@
   <string name="auto_controller">自动</string>
   <string name="remote_controller">手动</string>
   
-  <string name="rudder_amidships">回中: </string>
+  <string name="rudder_amidships">回中 </string>
+  <string name="throttle">油门</string>
+  <string name="lift_throttle">悬挂升级行程</string>
 
 
 

@@ -59,7 +59,7 @@ public class DataDealUtils {
 
   public static byte[] sendDirectionCodeFunc(float direction) {
     byte[] dirbytes = DataCastUtils.float2ByteArray(direction);
-    byte[] data = new byte[4];
+    byte[] data = new byte[7];
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xf1;
     data[2] = dirbytes[0];

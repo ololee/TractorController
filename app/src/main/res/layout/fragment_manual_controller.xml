@@ -7,6 +7,52 @@
   tools:context=".activity.ManualControllerActivity">
 
 
+  <com.qmuiteam.qmui.widget.QMUIVerticalTextView
+    android:text="@string/throttle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="3dp"
+    app:layout_constraintEnd_toStartOf="@+id/throttle"
+    app:layout_constraintTop_toTopOf="@id/throttle"/>
+
+  <com.hc.mixthebluetooth.view.MoveBar
+    android:id="@+id/throttle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:barRadius="6dp"
+    app:length="60dp"
+    app:isUpRight="true"
+    app:defaultInitValue="1.0"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.049"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.795" />
+
+  <com.qmuiteam.qmui.widget.QMUIVerticalTextView
+    android:text="@string/lift_throttle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="3dp"
+    app:layout_constraintEnd_toStartOf="@+id/lift_throttle"
+    app:layout_constraintTop_toTopOf="@id/lift_throttle"/>
+
+  <com.hc.mixthebluetooth.view.MoveBar
+    android:id="@+id/lift_throttle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:barRadius="6dp"
+    app:isUpRight="true"
+    app:defaultInitValue="1.0"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.373"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.763"
+    app:length="60dp" />
+
   <LinearLayout
     android:id="@+id/speedControllerParent"
     android:layout_width="wrap_content"
@@ -14,7 +60,7 @@
     android:orientation="vertical"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.1"
+    app:layout_constraintHorizontal_bias="0.2"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.7">
@@ -41,16 +87,26 @@
 
   </LinearLayout>
 
-  <com.hc.mixthebluetooth.view.LateralMoveBar
+  <TextView
+    android:text="@string/front_wheel_angle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintStart_toStartOf="@id/lateral_move_bar"
+    app:layout_constraintBottom_toTopOf="@id/lateral_move_bar"
+    android:layout_marginBottom="5dp"/>
+
+  <com.hc.mixthebluetooth.view.MoveBar
     android:id="@+id/lateral_move_bar"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    app:isUpRight="false"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.921"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
     app:layout_constraintVertical_bias="0.7" />
+
 
   <LinearLayout
     android:layout_width="wrap_content"
