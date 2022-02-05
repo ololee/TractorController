@@ -37,13 +37,14 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   @Override public void initAll(View view, Context context) {
     super.initAll(view, context);
     binding = FragmentManualControllerBinding.bind(view);
-  }
-
-  @Override public void initAll() {
     binding.lateralMoveBar.setSlideCallback(this);
     binding.btnForward.setOnClickListener(this);
     binding.btnStop.setOnClickListener(this);
     binding.btnBack.setOnClickListener(this);
+  }
+
+  @Override public void initAll() {
+
   }
 
   @Override public void readData(int state, Object o, byte[] data) {
