@@ -45,6 +45,9 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     binding.throttle.setSlideCallback(value -> {
       sendThrottle(value);
     });
+    /**
+     * 回中
+     */
     binding.rudderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
       binding.lateralMoveBar.setBackToCenter(isChecked);
     });
