@@ -23,6 +23,9 @@
     app:length="60dp"
     app:isUpRight="true"
     app:defaultInitValue="1.0"
+    app:useBGGradientColor="true"
+    app:startColor="@color/red"
+    app:endColor="@color/blue"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.049"
@@ -109,6 +112,7 @@
 
 
   <LinearLayout
+    android:id="@+id/rudder_parent"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -124,6 +128,50 @@
 
     <CheckBox
       android:id="@+id/rudder_check_box"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+  </LinearLayout>
+
+
+  <LinearLayout
+    android:id="@+id/lift_switch_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@+id/lateral_move_bar"
+    app:layout_constraintTop_toBottomOf="@id/rudder_parent"
+    app:layout_constraintVertical_bias="0.01">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/list_switch" />
+
+    <CheckBox
+      android:id="@+id/lift_switch_check_box"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content" />
+  </LinearLayout>
+
+
+  <LinearLayout
+    android:id="@+id/throttle_lock_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="@+id/lift_switch_parent"
+    app:layout_constraintTop_toBottomOf="@id/lift_switch_parent"
+    app:layout_constraintVertical_bias="0.01">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/throttle_switch" />
+
+    <CheckBox
+      android:id="@+id/throttle_switch_check_box"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content" />
   </LinearLayout>

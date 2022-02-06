@@ -3,11 +3,18 @@ package com.hc.mixthebluetooth.view;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PixelFormat;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -41,6 +48,11 @@ public class MoveBar extends View {
 
   private boolean isUpRight = true;
 
+  private boolean useGradientColor = false;
+  private int bgStartColor = Color.parseColor("#ff0000");
+  private int bgEndColor = Color.parseColor("#0000ff");
+  private boolean touchEnable = true;
+
   public MoveBar(Context context) {
     super(context);
   }
@@ -53,11 +65,14 @@ public class MoveBar extends View {
     radius = QMUIDisplayHelper.dpToPx((int) ta.getDimension(R.styleable.MoveBar_barRadius, radius));
     outlineLen =
         QMUIDisplayHelper.dpToPx((int) ta.getDimension(R.styleable.MoveBar_length, outlineLen));
-    current = radius+outlineLen*ta.getFloat(R.styleable.MoveBar_defaultInitValue,0.5f);
+    current = radius + outlineLen * ta.getFloat(R.styleable.MoveBar_defaultInitValue, 0.5f);
     circleColor = ta.getColor(R.styleable.MoveBar_moveBarCircleColor, circleColor);
     pressedCircleColor =
         ta.getColor(R.styleable.MoveBar_moveBarCirclePressedColor, pressedCircleColor);
     backgroundColor = ta.getColor(R.styleable.MoveBar_moveBarBGColor, backgroundColor);
+    useGradientColor = ta.getBoolean(R.styleable.MoveBar_useBGGradientColor, useGradientColor);
+    bgStartColor = ta.getColor(R.styleable.MoveBar_startColor, bgStartColor);
+    bgEndColor = ta.getColor(R.styleable.MoveBar_endColor, bgEndColor);
     ta.recycle();
     init();
   }
@@ -85,14 +100,8 @@ public class MoveBar extends View {
     super.onMeasure(resultWSpec, resultHSpec);
   }
 
-  private void calcMode(int spec) {
-    int mode = MeasureSpec.getMode(spec);
-    switch (mode) {
-      case MeasureSpec.AT_MOST:
-    }
-  }
-
   private void init() {
+    Shader shader=null;
     if (isUpRight) {
       RectF outLineTopCircle = new RectF(0, 0, 2 * radius, 2 * radius);
       RectF outLineBottomCircle = new RectF(0, outlineLen, 2 * radius, 2 * radius + outlineLen);
@@ -101,6 +110,8 @@ public class MoveBar extends View {
       outlinePath.lineTo(2 * radius, radius);
       outlinePath.addArc(outLineTopCircle, 0, -180);
       outlinePath.lineTo(0, radius + outlineLen);
+      shader =  new LinearGradient(radius, 0, radius, 2 * radius + outlineLen, bgStartColor, bgEndColor,
+          Shader.TileMode.CLAMP);
     } else {
       RectF outLineLeftCircle = new RectF(0, 0, 2 * radius, 2 * radius);
       RectF outLineRightCircle = new RectF(outlineLen, 0, 2 * radius + outlineLen, 2 * radius);
@@ -109,8 +120,14 @@ public class MoveBar extends View {
       outlinePath.lineTo(radius, 2 * radius);
       outlinePath.addArc(outLineLeftCircle, 270, -180);
       outlinePath.lineTo(radius + outlineLen, 0);
+      shader = new LinearGradient(0, radius, 2 * radius + outlineLen, radius, bgStartColor, bgEndColor,
+          Shader.TileMode.CLAMP);
     }
-    outlinePaint.setColor(backgroundColor);
+    if(!useGradientColor){
+      outlinePaint.setColor(backgroundColor);
+    }else {
+      outlinePaint.setShader(shader);
+    }
     outlinePaint.setAntiAlias(true);
 
     fingerPaint.setColor(Color.WHITE);
@@ -126,6 +143,8 @@ public class MoveBar extends View {
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
+    if(!touchEnable)
+      return false;
     switch (event.getAction()) {
       case MotionEvent.ACTION_DOWN:
       case MotionEvent.ACTION_MOVE:
@@ -190,5 +209,9 @@ public class MoveBar extends View {
       current = (float) (radius + 0.5 * outlineLen);
       invalidate();
     }
+  }
+
+  public void setTouchEnable(boolean touchEnable) {
+    this.touchEnable = touchEnable;
   }
 }

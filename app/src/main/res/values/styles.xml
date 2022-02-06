@@ -41,6 +41,10 @@
     <attr name="moveBarCirclePressedColor" format="color" />
     <attr name="moveBarBGColor" format="color" />
     <attr name="defaultInitValue" format="float"/>
+    <attr name="useBGGradientColor" format="boolean"/>
+    <attr name="startColor" format="color"/>
+    <attr name="endColor" format="color"/>
+
   </declare-styleable>
 
 

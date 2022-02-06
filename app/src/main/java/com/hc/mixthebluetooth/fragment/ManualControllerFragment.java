@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.CompoundButton;
 import com.hc.basiclibrary.viewBasic.BasFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
@@ -41,6 +42,18 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     binding.btnBack.setOnClickListener(this);
     binding.rudderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
       binding.lateralMoveBar.setBackToCenter(isChecked);
+    });
+    binding.rudderCheckBox.setChecked(true);
+    binding.lateralMoveBar.setBackToCenter(true);
+    binding.liftThrottle.setTouchEnable(binding.liftSwitchCheckBox.isChecked());
+    binding.liftSwitchCheckBox.setOnCheckedChangeListener(
+        (buttonView, isChecked) -> {
+          binding.liftThrottle.setTouchEnable(isChecked);
+        });
+    binding.throttleSwitchCheckBox.setChecked(false);
+    binding.throttle.setTouchEnable(binding.throttleSwitchCheckBox.isChecked());
+    binding.throttleSwitchCheckBox.setOnCheckedChangeListener((v,isChecked)->{
+      binding.throttle.setTouchEnable(isChecked);
     });
   }
 

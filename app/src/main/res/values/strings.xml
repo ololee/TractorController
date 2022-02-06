@@ -110,6 +110,8 @@
   <string name="remote_controller">手动</string>
   
   <string name="rudder_amidships">回中 </string>
+  <string name="list_switch">悬挂行程锁</string>
+  <string name="throttle_switch">油门锁</string>
   <string name="throttle">油门</string>
   <string name="lift_throttle">悬挂升级行程</string>
 
