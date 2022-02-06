@@ -29,6 +29,14 @@ public class DataModel {
    */
   private float vehicleY;
 
+  /**
+   * rtk模式
+   */
+  private int rtkMode;
+
+  private float baseLineAngle;
+
+
   public DataModel() {
   }
 
@@ -40,6 +48,18 @@ public class DataModel {
     this.rtkDirection = rtkDirection;
     this.vehicleX = vehicleX;
     this.vehicleY = vehicleY;
+  }
+
+  public DataModel(float lateralDeviation, float courseDeviation, float frontWheelAngle,
+      float rtkDirection, float vehicleX, float vehicleY, int rtkMode, float baseLineAngle) {
+    this.lateralDeviation = lateralDeviation;
+    this.courseDeviation = courseDeviation;
+    this.frontWheelAngle = frontWheelAngle;
+    this.rtkDirection = rtkDirection;
+    this.vehicleX = vehicleX;
+    this.vehicleY = vehicleY;
+    this.rtkMode = rtkMode;
+    this.baseLineAngle = baseLineAngle;
   }
 
   public float getLateralDeviation() {
@@ -90,6 +110,22 @@ public class DataModel {
     this.vehicleY = vehicleY;
   }
 
+  public int getRtkMode() {
+    return rtkMode;
+  }
+
+  public void setRtkMode(int rtkMode) {
+    this.rtkMode = rtkMode;
+  }
+
+  public float getBaseLineAngle() {
+    return baseLineAngle;
+  }
+
+  public void setBaseLineAngle(float baseLineAngle) {
+    this.baseLineAngle = baseLineAngle;
+  }
+
   @Override public String toString() {
     return "DataModel{" +
         "lateralDeviation=" + lateralDeviation +
@@ -98,6 +134,8 @@ public class DataModel {
         ", rtkDirection=" + rtkDirection +
         ", vehicleX=" + vehicleX +
         ", vehicleY=" + vehicleY +
+        ", rtkMode=" + rtkMode +
+        ", baseLineAngle=" + baseLineAngle +
         '}';
   }
 }

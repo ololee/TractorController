@@ -92,8 +92,12 @@
   <string name="picture_switch">画面切换</string>
   <string name="amplitude_width_settings">幅宽设置</string>
 
+  <string name="start">开始</string>
+  <string name="stop">停止</string>
+
   <string name="lateral_deviation">横向偏差</string>
   <string name="mode">模式</string>
+  <string name="baseline_angle">基准线角度</string>
 
   <string name="vehicle_direction">车辆航向信息</string>
   <string name="course_deviation">航向偏差</string>

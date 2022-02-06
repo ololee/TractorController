@@ -18,6 +18,17 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent" />
 
+  <Button
+    android:id="@+id/start_pause_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="24dp"
+    android:layout_marginTop="8dp"
+    android:textColor="@color/green"
+    android:text="@string/start"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/picture_switch" />
+
 
   <LinearLayout
     android:layout_width="130dp"
@@ -42,6 +53,7 @@
   </LinearLayout>
 
   <LinearLayout
+    android:id="@+id/rtk_mode_parent"
     android:layout_width="50dp"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp"
@@ -62,6 +74,30 @@
       android:layout_height="wrap_content"
       android:gravity="center" />
   </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/baseline_parent"
+    android:layout_width="140dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="24dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/rtk_mode_parent">
+
+    <TextView
+      android:layout_width="75dp"
+      android:layout_height="wrap_content"
+      android:text="@string/baseline_angle" />
+
+    <TextView
+      android:id="@+id/baseline_angle_tv"
+      android:text="0.00"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center" />
+  </LinearLayout>
+
 
 
   <LinearLayout

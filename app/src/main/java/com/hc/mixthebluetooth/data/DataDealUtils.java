@@ -4,19 +4,31 @@ import com.hc.mixthebluetooth.data.exception.DataErrorException;
 import com.hc.mixthebluetooth.data.utils.DataCastUtils;
 
 public class DataDealUtils {
+  private static DataModel dataModel = new DataModel();
 
   public static DataModel formatData(byte[] data) {
     if (data == null) {
       return null;
     }
-    if (data.length < 27) {
+    if (data[0] != 0x5a) {
       throw new DataErrorException();
     }
-    /*if (data[0] != (byte) 0x5a || data[1] != (byte) 0xc1 || data[27] != 0x1c) {
-      throw new DataErrorException();
-    }*/
-    DataModel dataModel = new DataModel();
+    switch (data[1]) {
+      case (byte) 0xc1:
+        c1Data(data);
+        break;
+      case (byte) 0xb1:
+        b1Data(data);
+        break;
+      case (byte) 0xf1:
+        f1Data(data);
+        break;
+    }
 
+    return dataModel;
+  }
+
+  private static void c1Data(byte[] data) {
     try {
       /**
        * 横向偏差
@@ -45,7 +57,22 @@ public class DataDealUtils {
     } catch (Exception e) {
       throw new DataErrorException();
     }
-    return dataModel;
+  }
+
+  private static void b1Data(byte[] data) {
+    try {
+      dataModel.setRtkMode(data[2]);
+    } catch (Exception e) {
+      throw new DataErrorException();
+    }
+  }
+
+  private static void f1Data(byte[] data) {
+    try {
+      dataModel.setBaseLineAngle(DataCastUtils.byte2float(data,2));
+    } catch (Exception e) {
+      throw new DataErrorException();
+    }
   }
 
   public static byte[] sendControlCodeFunc(int functionCode) {
@@ -97,6 +124,4 @@ public class DataDealUtils {
     data[3] = 0x00;
     return data;
   }
-
-
 }

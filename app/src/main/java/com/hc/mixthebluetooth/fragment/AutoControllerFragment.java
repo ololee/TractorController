@@ -23,6 +23,8 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
 
   private FragmentAutoControllerBinding binding;
 
+  private boolean startBtnStatus = false;
+
   public AutoControllerFragment() {
   }
 
@@ -51,6 +53,7 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     btnD.setOnClickListener(this);
     binding.btnTurnLeft.setOnClickListener(this);
     binding.btnTurnRight.setOnClickListener(this);
+    binding.startPauseBtn.setOnClickListener(this);
   }
 
   @Override public void setHandler(Handler handler) {
@@ -71,6 +74,8 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
           binding.courseDeviationTv.setText(dataModel.getCourseDeviation() + "");
           binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle() + "");
           binding.vehicleDirectionTv.setText(dataModel.getRtkDirection() + "");
+          binding.rtkModeTv.setText(dataModel.getRtkMode() + "");
+          binding.baselineAngleTv.setText(dataModel.getBaseLineAngle() + "");
         }
         break;
       case CommunicationActivity.FRAGMENT_STATE_NUMBER:
@@ -78,7 +83,6 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
       case CommunicationActivity.FRAGMENT_STATE_SEND_SEND_TITLE:
         break;
     }
-
   }
 
   public void sendData(int functionCode) {
@@ -114,6 +118,11 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
       case R.id.btn_turn_right:
         sendData(0xe2);
         break;
+      case R.id.start_pause_btn:
+        binding.startPauseBtn.setText(startBtnStatus?R.string.start:R.string.stop);
+        binding.startPauseBtn.setTextColor(getResources().getColor(startBtnStatus? R.color.green :R.color.red));
+        sendData(startBtnStatus?0xE3:0xE4);
+        startBtnStatus = !startBtnStatus;
     }
   }
 }
