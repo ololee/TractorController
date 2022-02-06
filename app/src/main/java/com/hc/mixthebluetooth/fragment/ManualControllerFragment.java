@@ -19,6 +19,7 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   private Handler mHandler;
   private DeviceModule module;
   private FragmentManualControllerBinding binding;
+  private float lastThrottleValue, lastListThrottleValue, lastLaterDirectionValue = 0.0f;
 
   public ManualControllerFragment() {
   }
@@ -35,15 +36,26 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   @Override public void initAll(View view, Context context) {
     super.initAll(view, context);
     binding = FragmentManualControllerBinding.bind(view);
-    binding.lateralMoveBar.setSlideCallback(value -> sendDirectionCode(value));
+    binding.lateralMoveBar.setSlideCallback(value -> {
+      if (lastLaterDirectionValue != value) {
+        sendDirectionCode(value);
+      }
+      lastLaterDirectionValue = value;
+    });
     binding.btnForward.setOnClickListener(this);
     binding.btnStop.setOnClickListener(this);
     binding.btnBack.setOnClickListener(this);
     binding.liftThrottle.setSlideCallback(value -> {
-      sendLiftThrottle(value);
+      if (lastListThrottleValue != value) {
+        sendLiftThrottle(value);
+      }
+      lastListThrottleValue = value;
     });
     binding.throttle.setSlideCallback(value -> {
-      sendThrottle(value);
+      if (lastThrottleValue != value) {
+        sendThrottle(value);
+      }
+      lastThrottleValue = value;
     });
     /**
      * 回中
