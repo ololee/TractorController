@@ -15,8 +15,7 @@ import com.hc.mixthebluetooth.databinding.FragmentManualControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.view.MoveBar;
 
-public class ManualControllerFragment extends BasFragment implements View.OnClickListener,
-    MoveBar.SlideCallback {
+public class ManualControllerFragment extends BasFragment implements View.OnClickListener {
   private Handler mHandler;
   private DeviceModule module;
   private FragmentManualControllerBinding binding;
@@ -36,10 +35,16 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
   @Override public void initAll(View view, Context context) {
     super.initAll(view, context);
     binding = FragmentManualControllerBinding.bind(view);
-    binding.lateralMoveBar.setSlideCallback(this);
+    binding.lateralMoveBar.setSlideCallback(value -> sendDirectionCode(value));
     binding.btnForward.setOnClickListener(this);
     binding.btnStop.setOnClickListener(this);
     binding.btnBack.setOnClickListener(this);
+    binding.liftThrottle.setSlideCallback(value -> {
+      sendLiftThrottle(value);
+    });
+    binding.throttle.setSlideCallback(value -> {
+      sendThrottle(value);
+    });
     binding.rudderCheckBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
       binding.lateralMoveBar.setBackToCenter(isChecked);
     });
@@ -52,7 +57,7 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
         });
     binding.throttleSwitchCheckBox.setChecked(false);
     binding.throttle.setTouchEnable(binding.throttleSwitchCheckBox.isChecked());
-    binding.throttleSwitchCheckBox.setOnCheckedChangeListener((v,isChecked)->{
+    binding.throttleSwitchCheckBox.setOnCheckedChangeListener((v, isChecked) -> {
       binding.throttle.setTouchEnable(isChecked);
     });
   }
@@ -106,11 +111,15 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     mHandler.sendMessage(message);
   }
 
-  public void sendDirectionCode(float x){
+  public void sendDirectionCode(float x) {
     if (mHandler == null) {
       return;
     }
-    byte[] sendDataCode = DataDealUtils.sendDirectionCodeFunc(x);
+    int dir = (int) (x * 128) + 128;
+    if (dir == 256) {
+      dir = 255;
+    }
+    byte[] sendDataCode = DataDealUtils.sendDirectionCodeFunc(dir);
     FragmentMessageItem item =
         new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
     Message message = mHandler.obtainMessage();
@@ -119,8 +128,37 @@ public class ManualControllerFragment extends BasFragment implements View.OnClic
     mHandler.sendMessage(message);
   }
 
+  public void sendThrottle(float x) {
+    if (mHandler == null) {
+      return;
+    }
+    int throttle = (int) (x * -128) + 128;
+    if (throttle == 256) {
+      throttle = 255;
+    }
+    byte[] sendDataCode = DataDealUtils.sendThrottleCodeFunc(throttle);
+    FragmentMessageItem item =
+        new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
+    Message message = mHandler.obtainMessage();
+    message.what = CommunicationActivity.DATA_TO_MODULE;
+    message.obj = item;
+    mHandler.sendMessage(message);
+  }
 
-  @Override public void slide(float value) {
-    sendDirectionCode(value);
+  public void sendLiftThrottle(float x) {
+    if (mHandler == null) {
+      return;
+    }
+    int throttle = (int) (x * -128) + 128;
+    if (throttle == 256) {
+      throttle = 255;
+    }
+    byte[] sendDataCode = DataDealUtils.sendLiftThrottleCodeFunc(throttle);
+    FragmentMessageItem item =
+        new FragmentMessageItem(true, sendDataCode, Analysis.getTime(), true, module, false);
+    Message message = mHandler.obtainMessage();
+    message.what = CommunicationActivity.DATA_TO_MODULE;
+    message.obj = item;
+    mHandler.sendMessage(message);
   }
 }

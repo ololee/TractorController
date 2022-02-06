@@ -57,6 +57,7 @@ public class DataDealUtils {
     return data;
   }
 
+  @Deprecated
   public static byte[] sendDirectionCodeFunc(float direction) {
     byte[] dirbytes = DataCastUtils.float2ByteArray(direction);
     byte[] data = new byte[7];
@@ -69,4 +70,33 @@ public class DataDealUtils {
     data[6] = 0x07;
     return data;
   }
+
+  public static byte[] sendDirectionCodeFunc(int direction) {
+    byte[] data = new byte[4];
+    data[0] = (byte) 0xa5;
+    data[1] = (byte) 0xf1;
+    data[2] = (byte) direction;
+    data[3] = 0x00;
+    return data;
+  }
+
+  public static byte[] sendThrottleCodeFunc(int direction) {
+    byte[] data = new byte[4];
+    data[0] = (byte) 0xa5;
+    data[1] = (byte) 0xf2;
+    data[2] = (byte) direction;
+    data[3] = 0x00;
+    return data;
+  }
+
+  public static byte[] sendLiftThrottleCodeFunc(int direction) {
+    byte[] data = new byte[4];
+    data[0] = (byte) 0xa5;
+    data[1] = (byte) 0xf3;
+    data[2] = (byte) direction;
+    data[3] = 0x00;
+    return data;
+  }
+
+
 }

@@ -13,9 +13,11 @@ import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
+import com.hc.mixthebluetooth.activity.tool.Analysis;
 import com.hc.mixthebluetooth.databinding.ActivityRemoteControlBinding;
 import com.hc.mixthebluetooth.fragment.ManualControllerFragment;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.hc.mixthebluetooth.activity.CommunicationActivity.FRAGMENT_STATE_DATA;
@@ -34,6 +36,7 @@ public class ManualControllerActivity extends BasActivity {
     public boolean handleMessage(@NonNull Message msg) {
       FragmentMessageItem item = (FragmentMessageItem) msg.obj;
       mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
+      log("ololeeDetail__send:"+ Analysis.getByteToString(item.getByteData(),true));
       return true;
     }
   });
