@@ -54,6 +54,10 @@ public class DataDealUtils {
        * 车辆Y位置
        */
       dataModel.setVehicleY(DataCastUtils.byte2float(data, 22));
+      /**
+       * rtk模式
+       */
+      dataModel.setRtkMode(data[26]);
     } catch (Exception e) {
       throw new DataErrorException();
     }
@@ -69,7 +73,7 @@ public class DataDealUtils {
 
   private static void f1Data(byte[] data) {
     try {
-      dataModel.setBaseLineAngle(DataCastUtils.byte2float(data,2));
+      dataModel.setBaseLineAngle(DataCastUtils.byte2float(data, 2));
     } catch (Exception e) {
       throw new DataErrorException();
     }

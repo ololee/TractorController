@@ -79,7 +79,7 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
               NumberFormatUtils.formatFloat(dataModel.getFrontWheelAngle()));
           binding.vehicleDirectionTv.setText(
               NumberFormatUtils.formatFloat(dataModel.getRtkDirection()));
-          binding.rtkModeTv.setText(NumberFormatUtils.formatFloat(dataModel.getRtkMode()));
+          binding.rtkModeTv.setText(dataModel.getRtkMode()+"");
           binding.baselineAngleTv.setText(
               NumberFormatUtils.formatFloat(dataModel.getBaseLineAngle()));
         }
