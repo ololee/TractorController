@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import com.hc.basiclibrary.utils.NumberFormatUtils;
 import com.hc.basiclibrary.viewBasic.BasFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
@@ -70,12 +71,17 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
           String strData = Analysis.getByteToString(data, true);
           log("ololeeDetail: " + strData);
           DataModel dataModel = DataDealUtils.formatData(data);
-          binding.lateralDeviationTv.setText(dataModel.getLateralDeviation() + "");
-          binding.courseDeviationTv.setText(dataModel.getCourseDeviation() + "");
-          binding.frontWheelAngleTv.setText(dataModel.getFrontWheelAngle() + "");
-          binding.vehicleDirectionTv.setText(dataModel.getRtkDirection() + "");
-          binding.rtkModeTv.setText(dataModel.getRtkMode() + "");
-          binding.baselineAngleTv.setText(dataModel.getBaseLineAngle() + "");
+          binding.lateralDeviationTv.setText(
+              NumberFormatUtils.formatFloat(dataModel.getLateralDeviation()));
+          binding.courseDeviationTv.setText(
+              NumberFormatUtils.formatFloat(dataModel.getCourseDeviation()));
+          binding.frontWheelAngleTv.setText(
+              NumberFormatUtils.formatFloat(dataModel.getFrontWheelAngle()));
+          binding.vehicleDirectionTv.setText(
+              NumberFormatUtils.formatFloat(dataModel.getRtkDirection()));
+          binding.rtkModeTv.setText(NumberFormatUtils.formatFloat(dataModel.getRtkMode()));
+          binding.baselineAngleTv.setText(
+              NumberFormatUtils.formatFloat(dataModel.getBaseLineAngle()));
         }
         break;
       case CommunicationActivity.FRAGMENT_STATE_NUMBER:
@@ -119,9 +125,10 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
         sendData(0xe2);
         break;
       case R.id.start_pause_btn:
-        binding.startPauseBtn.setText(startBtnStatus?R.string.start:R.string.stop);
-        binding.startPauseBtn.setTextColor(getResources().getColor(startBtnStatus? R.color.green :R.color.red));
-        sendData(startBtnStatus?0xE3:0xE4);
+        binding.startPauseBtn.setText(startBtnStatus ? R.string.start : R.string.stop);
+        binding.startPauseBtn.setTextColor(
+            getResources().getColor(startBtnStatus ? R.color.green : R.color.red));
+        sendData(startBtnStatus ? 0xE3 : 0xE4);
         startBtnStatus = !startBtnStatus;
     }
   }
