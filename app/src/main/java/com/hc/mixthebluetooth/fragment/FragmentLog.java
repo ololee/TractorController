@@ -1,25 +1,22 @@
 package com.hc.mixthebluetooth.fragment;
 
 import android.os.Handler;
-import android.widget.Button;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hc.basiclibrary.ioc.OnClick;
 import com.hc.basiclibrary.ioc.ViewById;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
-import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
 import com.hc.mixthebluetooth.recyclerData.FragmentLogAdapter;
-import com.hc.mixthebluetooth.recyclerData.FragmentMessAdapter;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentLogItem;
 
 import java.util.ArrayList;
 import java.util.List;
 //差更新，差接收，传输几乎完成
-public class FragmentLog extends BasFragment {
+public class FragmentLog extends BaseFragment {
 
     @ViewById(R.id.recycler_log_fragment)
     private RecyclerView mRecyclerView;

@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.hc.basiclibrary.dialog.CommonDialog;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
@@ -22,7 +22,7 @@ import com.hc.mixthebluetooth.customView.dialog.SetButton;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import com.hc.mixthebluetooth.storage.Storage;
 
-public class FragmentCustomGroup extends BasFragment {
+public class FragmentCustomGroup extends BaseFragment {
 
     private Storage mStorage;
 

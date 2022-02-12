@@ -91,6 +91,9 @@
 
   <string name="picture_switch">画面切换</string>
   <string name="amplitude_width_settings">幅宽设置</string>
+  <string name="amplitude_settings">幅度</string>
+  <string name="width_settins">宽度</string>
+  <string name="please_input_amplitude_info">请输入幅宽信息</string>
 
   <string name="start">开始</string>
   <string name="stop">停止</string>
@@ -112,13 +115,14 @@
 
   <string name="auto_controller">自动</string>
   <string name="remote_controller">手动</string>
-  
+
   <string name="rudder_amidships">回中 </string>
   <string name="list_switch">悬挂行程锁</string>
   <string name="throttle_switch">油门锁</string>
   <string name="throttle">油门</string>
   <string name="lift_throttle">悬挂升级行程</string>
-
+  <!-- TODO: Remove or change this placeholder text -->
+  <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

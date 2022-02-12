@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.hc.basiclibrary.R;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 
 import java.util.ArrayList;
@@ -19,7 +19,7 @@ public class BasFragmentManage {
     private List<FragmentMessage> mFragments = new ArrayList<>();
     private int mViewId;
     private int mPreviousFragmentLocation = -1; //之前fragment数组的位置
-    private SparseArray<BasFragment> mArray = new SparseArray<>();
+    private SparseArray<BaseFragment> mArray = new SparseArray<>();
     private List<Integer> mFragmentOrder = new ArrayList<>();
     private FragmentActivity mActivity;
 
@@ -29,7 +29,7 @@ public class BasFragmentManage {
     }
 
     //添加所有的fragment，按照从左到右的顺序,不然会抛出异常
-    public IMessageInterface addFragment(int id,BasFragment fragment){
+    public IMessageInterface addFragment(int id, BaseFragment fragment){
         int length = mArray.size();
         FragmentTransaction transaction = mActivity.getSupportFragmentManager().beginTransaction();
         mArray.put(id,fragment);
@@ -148,14 +148,14 @@ public class BasFragmentManage {
 
     private class FragmentMessage{
         private int mViewId;
-        private BasFragment mFragment;
+        private BaseFragment mFragment;
         private boolean mHide = true;//初始为隐藏
-        FragmentMessage(int viewId, BasFragment fragments){
+        FragmentMessage(int viewId, BaseFragment fragments){
             this.mFragment = fragments;
             this.mViewId = viewId;
         }
 
-        BasFragment getFragment() {
+        BaseFragment getFragment() {
             return mFragment;
         }
 

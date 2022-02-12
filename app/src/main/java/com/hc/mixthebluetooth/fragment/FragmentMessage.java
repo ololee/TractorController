@@ -18,7 +18,7 @@ import com.hc.basiclibrary.ioc.OnClick;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.ioc.ViewByIds;
 import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
@@ -32,7 +32,7 @@ import com.hc.mixthebluetooth.storage.Storage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentMessage extends BasFragment {
+public class FragmentMessage extends BaseFragment {
 
     @ViewByIds(value = {R.id.edit_message_fragment,R.id.loop_time_message_fragment},name = {"mDataET","mLoopET"})
     private EditText mDataET,mLoopET;

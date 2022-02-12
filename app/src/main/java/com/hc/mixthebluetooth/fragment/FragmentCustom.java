@@ -12,7 +12,7 @@ import com.hc.basiclibrary.ioc.OnClick;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.ioc.ViewByIds;
 import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.basiclibrary.viewBasic.manage.BasFragmentManage;
 import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 import com.hc.bluetoothlibrary.DeviceModule;
@@ -27,7 +27,7 @@ import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentCustom extends BasFragment {
+public class FragmentCustom extends BaseFragment {
 
     private static final int FRAGMENT_1 = 0x00;
     private static final int FRAGMENT_2 = 0x01;

@@ -8,14 +8,14 @@ import android.widget.TextView;
 import com.hc.basiclibrary.ioc.OnClick;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.ioc.ViewByIds;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.bluetoothlibrary.tootl.ModuleParameters;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.customView.CheckBoxSample;
 
-public class FragmentThree extends BasFragment {
+public class FragmentThree extends BaseFragment {
 
     @ViewByIds(value = {R.id.general_fragment_name,R.id.general_fragment_mac,R.id.general_fragment_type,
     R.id.general_fragment_state,R.id.general_fragment_service,R.id.general_fragment_send,R.id.general_fragment_read},

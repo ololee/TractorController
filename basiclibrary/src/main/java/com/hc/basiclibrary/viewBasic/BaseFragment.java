@@ -12,18 +12,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.hc.basiclibrary.BackHandledInterface;
 import com.hc.basiclibrary.ioc.ViewUtils;
 import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 
 
-public abstract class BasFragment extends Fragment implements IMessageInterface {
+public abstract class BaseFragment extends Fragment implements IMessageInterface {
 
     private Class mClass;
 
+    protected BackHandledInterface backHandledInterface;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(!(getActivity() instanceof BackHandledInterface)){
+            throw new ClassCastException("Activity must implement BackHandledInterface");
+        }else {
+            this.backHandledInterface = (BackHandledInterface) getActivity();
+        }
     }
     @Nullable
     @Override
@@ -85,8 +92,17 @@ public abstract class BasFragment extends Fragment implements IMessageInterface 
         }
     }
 
+    @Override public void onStart() {
+        super.onStart();
+        backHandledInterface.setSelectedFragment(this);
+    }
+
     public abstract int setFragmentViewId();
 
     public abstract void initAll();
+
+    public  boolean onBackPressed(){
+        return false;
+    }
 
 }

@@ -15,7 +15,7 @@ import com.hc.basiclibrary.dialog.CommonDialog;
 import com.hc.basiclibrary.ioc.ViewById;
 import com.hc.basiclibrary.ioc.ViewByIds;
 import com.hc.basiclibrary.titleBasic.DefaultNavigationBar;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
@@ -28,7 +28,7 @@ import com.hc.mixthebluetooth.storage.Storage;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class FragmentCustomDirection extends BasFragment {
+public class FragmentCustomDirection extends BaseFragment {
 
     private static final String mSeparator = "//**$$/separator/$$**//";
 

@@ -8,7 +8,9 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.hc.basiclibrary.BackHandledInterface;
 import com.hc.basiclibrary.viewBasic.BasActivity;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.basiclibrary.viewBasic.tool.IMessageInterface;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
@@ -16,24 +18,35 @@ import com.hc.mixthebluetooth.activity.single.HoldBluetooth;
 import com.hc.mixthebluetooth.databinding.ActivityAutoControlBinding;
 import com.hc.mixthebluetooth.fragment.AutoControllerFragment;
 import com.hc.mixthebluetooth.fragment.ManualControllerFragment;
+import com.hc.mixthebluetooth.fragment.SettingsFragment;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 import java.util.List;
 
 import static com.hc.mixthebluetooth.activity.CommunicationActivity.FRAGMENT_STATE_DATA;
 
-public class AutoControlActivity extends BasActivity {
+public class AutoControlActivity extends BasActivity implements BackHandledInterface {
   private ActivityAutoControlBinding binding;
   private FragmentManager fragmentManager;
   private HoldBluetooth mHoldBluetooth;
   private List<DeviceModule> modules;
   private DeviceModule mErrorDisconnect;
   private IMessageInterface mMessage;
+  private BaseFragment baseFragment;
+  public static final int INIT = 0x12;
+  public static final int SEND_SETTING_DATA =0x13;
 
   private Handler mFragmentHandler = new Handler(new Handler.Callback() {
     @Override
     public boolean handleMessage(@NonNull Message msg) {
-      FragmentMessageItem item = (FragmentMessageItem) msg.obj;
-      mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
+      switch (msg.what) {
+        case INIT:
+          break;
+        case SEND_SETTING_DATA:
+          FragmentMessageItem item = (FragmentMessageItem) msg.obj;
+          mHoldBluetooth.sendData(item.getModule(), item.getByteData().clone());
+          init();
+          break;
+      }
       return true;
     }
   });
@@ -44,12 +57,12 @@ public class AutoControlActivity extends BasActivity {
     binding = ActivityAutoControlBinding.inflate(getLayoutInflater());
     setContentView(binding.getRoot());
     setContext(this);
+    mHoldBluetooth = HoldBluetooth.getInstance();
     init();
   }
 
   @Override public void initAll() {
-    mHoldBluetooth = HoldBluetooth.getInstance();
-    initDataListener();
+
   }
 
   private void initDataListener() {
@@ -94,7 +107,7 @@ public class AutoControlActivity extends BasActivity {
     mHoldBluetooth.setOnReadListener(dataListener);
   }
 
-  private void init() {
+  public void init() {
     mMessage = AutoControllerFragment.newInstance();
     mMessage.setHandler(mFragmentHandler);
     fragmentManager = getSupportFragmentManager();
@@ -102,6 +115,17 @@ public class AutoControlActivity extends BasActivity {
     fragmentTransaction.replace(R.id.auto_controller_frame,
         (Fragment) mMessage);
     fragmentTransaction.commitAllowingStateLoss();
+    initDataListener();
+  }
+
+  public void setting() {
+    mMessage = SettingsFragment.newInstance();
+    mMessage.setHandler(mFragmentHandler);
+    FragmentManager fm = getSupportFragmentManager();
+    FragmentTransaction fragmentTransaction = fm.beginTransaction();
+    fragmentTransaction.replace(R.id.auto_controller_frame, (Fragment) mMessage);
+    fragmentTransaction.commitNowAllowingStateLoss();
+    initDataListener();
   }
 
   @Override
@@ -110,5 +134,16 @@ public class AutoControlActivity extends BasActivity {
     if (modules != null) {
       mHoldBluetooth.disconnect(modules.get(0));
     }
+  }
+
+  @Override public void onBackPressed() {
+    if (baseFragment != null && baseFragment.onBackPressed()) {
+      return;
+    }
+    super.onBackPressed();
+  }
+
+  @Override public void setSelectedFragment(BaseFragment fragment) {
+    this.baseFragment = fragment;
   }
 }

@@ -3,11 +3,17 @@ package com.hc.mixthebluetooth.fragment;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import com.hc.basiclibrary.utils.NumberFormatUtils;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
+import com.hc.mixthebluetooth.activity.AutoControlActivity;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
 import com.hc.mixthebluetooth.activity.tool.Analysis;
 import com.hc.mixthebluetooth.data.DataDealUtils;
@@ -15,7 +21,7 @@ import com.hc.mixthebluetooth.data.DataModel;
 import com.hc.mixthebluetooth.databinding.FragmentAutoControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
 
-public class AutoControllerFragment extends BasFragment implements View.OnClickListener {
+public class AutoControllerFragment extends BaseFragment implements View.OnClickListener {
 
   private Runnable mRunnable;//循环发送的线程
   private Handler mHandler;
@@ -55,6 +61,7 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
     binding.btnTurnLeft.setOnClickListener(this);
     binding.btnTurnRight.setOnClickListener(this);
     binding.startPauseBtn.setOnClickListener(this);
+    binding.amplitudeSettings.setOnClickListener(this);
   }
 
   @Override public void setHandler(Handler handler) {
@@ -79,7 +86,7 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
               NumberFormatUtils.formatFloat(dataModel.getFrontWheelAngle()));
           binding.vehicleDirectionTv.setText(
               NumberFormatUtils.formatFloat(dataModel.getRtkDirection()));
-          binding.rtkModeTv.setText(dataModel.getRtkMode()+"");
+          binding.rtkModeTv.setText(dataModel.getRtkMode() + "");
           binding.baselineAngleTv.setText(
               NumberFormatUtils.formatFloat(dataModel.getBaseLineAngle()));
         }
@@ -130,6 +137,13 @@ public class AutoControllerFragment extends BasFragment implements View.OnClickL
             getResources().getColor(startBtnStatus ? R.color.green : R.color.red));
         sendData(startBtnStatus ? 0xE3 : 0xE4);
         startBtnStatus = !startBtnStatus;
+        break;
+      case R.id.amplitude_settings:
+        if(getActivity() instanceof AutoControlActivity){
+          AutoControlActivity activity = (AutoControlActivity) getActivity();
+          activity.setting();
+        }
+        break;
     }
   }
 }

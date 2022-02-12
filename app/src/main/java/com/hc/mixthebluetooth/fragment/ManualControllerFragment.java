@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.CompoundButton;
-import com.hc.basiclibrary.viewBasic.BasFragment;
+import com.hc.basiclibrary.viewBasic.BaseFragment;
 import com.hc.bluetoothlibrary.DeviceModule;
 import com.hc.mixthebluetooth.R;
 import com.hc.mixthebluetooth.activity.CommunicationActivity;
@@ -13,9 +12,8 @@ import com.hc.mixthebluetooth.activity.tool.Analysis;
 import com.hc.mixthebluetooth.data.DataDealUtils;
 import com.hc.mixthebluetooth.databinding.FragmentManualControllerBinding;
 import com.hc.mixthebluetooth.recyclerData.itemHolder.FragmentMessageItem;
-import com.hc.mixthebluetooth.view.MoveBar;
 
-public class ManualControllerFragment extends BasFragment implements View.OnClickListener {
+public class ManualControllerFragment extends BaseFragment implements View.OnClickListener {
   private Handler mHandler;
   private DeviceModule module;
   private FragmentManualControllerBinding binding;
