@@ -2,9 +2,13 @@ package com.hc.mixthebluetooth.data;
 
 import com.hc.mixthebluetooth.data.exception.DataErrorException;
 import com.hc.mixthebluetooth.data.utils.DataCastUtils;
+import com.hc.mixthebluetooth.utils.CRCCheckUtils;
+import com.hc.mixthebluetooth.utils.CastUtils;
 
 public class DataDealUtils {
   private static DataModel dataModel = new DataModel();
+
+
 
   public static DataModel formatData(byte[] data) {
     if (data == null) {
@@ -127,5 +131,32 @@ public class DataDealUtils {
     data[2] = (byte) direction;
     data[3] = 0x00;
     return data;
+  }
+
+  /**
+   * c1数据验证
+   * @param data
+   * @return
+   */
+  public static boolean isC1DataValid(byte[] data){
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
+  }
+
+  /**
+   * B1数据验证
+   * @param data
+   * @return
+   */
+  public static boolean isB1DataValid(byte[] data){
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
+  }
+
+  /**
+   * F1数据验证
+   * @param data
+   * @return
+   */
+  public static boolean isF1DataValid(byte[] data){
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
   }
 }
