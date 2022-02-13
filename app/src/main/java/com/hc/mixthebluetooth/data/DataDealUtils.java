@@ -1,11 +1,13 @@
 package com.hc.mixthebluetooth.data;
 
+import android.util.Log;
 import com.hc.mixthebluetooth.data.exception.DataErrorException;
 import com.hc.mixthebluetooth.data.utils.DataCastUtils;
 import com.hc.mixthebluetooth.utils.CRCCheckUtils;
 import com.hc.mixthebluetooth.utils.CastUtils;
 
 public class DataDealUtils {
+  public static final String TAG =DataDealUtils.class.getSimpleName();
   private static DataModel dataModel = new DataModel();
 
 
@@ -19,12 +21,15 @@ public class DataDealUtils {
     }
     switch (data[1]) {
       case (byte) 0xc1:
+        Log.e(TAG, "formatData:c1,isC1DataValid: "+ isC1DataValid(data));
         c1Data(data);
         break;
       case (byte) 0xb1:
+        Log.e(TAG, "formatData:b1,isB1DataValid: "+ isB1DataValid(data));
         b1Data(data);
         break;
       case (byte) 0xf1:
+        Log.e(TAG, "formatData:F1,isF1DataValid: "+ isF1DataValid(data));
         f1Data(data);
         break;
     }
@@ -88,7 +93,7 @@ public class DataDealUtils {
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xff;
     data[2] = (byte) functionCode;
-    data[3] = 0x00;
+    data[3] = calcCRC8CheckData(data,3);
     return data;
   }
 
@@ -102,7 +107,7 @@ public class DataDealUtils {
     data[3] = dirbytes[1];
     data[4] = dirbytes[2];
     data[5] = dirbytes[3];
-    data[6] = 0x07;
+    data[6] = calcCRC8CheckData(data,6);
     return data;
   }
 
@@ -111,7 +116,7 @@ public class DataDealUtils {
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xf1;
     data[2] = (byte) direction;
-    data[3] = 0x00;
+    data[3] = calcCRC8CheckData(data,3);
     return data;
   }
 
@@ -120,7 +125,7 @@ public class DataDealUtils {
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xf2;
     data[2] = (byte) direction;
-    data[3] = 0x00;
+    data[3] = calcCRC8CheckData(data,3);
     return data;
   }
 
@@ -129,8 +134,12 @@ public class DataDealUtils {
     data[0] = (byte) 0xa5;
     data[1] = (byte) 0xf3;
     data[2] = (byte) direction;
-    data[3] = 0x00;
+    data[3] = calcCRC8CheckData(data,3);
     return data;
+  }
+
+  private static boolean validData(byte[] data,int len){
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,len),len,data[len])!=0;
   }
 
   /**
@@ -139,7 +148,7 @@ public class DataDealUtils {
    * @return
    */
   public static boolean isC1DataValid(byte[] data){
-    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),26,data[26])!=0;
   }
 
   /**
@@ -148,7 +157,7 @@ public class DataDealUtils {
    * @return
    */
   public static boolean isB1DataValid(byte[] data){
-    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,6),6,data[6])!=0;
   }
 
   /**
@@ -157,6 +166,14 @@ public class DataDealUtils {
    * @return
    */
   public static boolean isF1DataValid(byte[] data){
-    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,26),data.length,data[26])!=0;
+    return CRCCheckUtils.CRC8_Table_Check(CastUtils.byteArray2IntArray(data,3),3,data[3])!=0;
+  }
+
+  public static byte calcCRC8CheckData(byte[] data,int len){
+    return (byte) CRCCheckUtils.CRC8_Table(CastUtils.byteArray2IntArray(data,len),len);
+  }
+
+  public static byte calcCRC8CheckData(byte[] data){
+    return (byte) CRCCheckUtils.CRC8_Table(CastUtils.byteArray2IntArray(data,data.length),data.length);
   }
 }
